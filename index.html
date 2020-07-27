@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>React Sports Game</title>
+</head>
+
+<body>
+    <!-- STEP 1 create an element in HTML for ReactDOM to attach our React-generated elements to -->
+    <div id="root"></div>
+
+    <!-- STEP 2 & 3 include React library and renderer ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!--STEP 4 create React elements in body of HTML  BUT ENTER THESE CONST AFTER THE "text/babel" call out-->
+
+    <!-- include Babel standalone so we can process JSX in React.createElement stuff -->
+    <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <!--closing script tag for text/babel line below is at end of all code-->
+    <script type="text/babel">
+
+        // STEP 5 include our JS+JSX for the React Appliccation -->
+
+        //An App component under which all other components will be added-->
+        function App(props) {
+            //headers for both teams
+            return (<div>
+                <Team name="Home Team" />
+                <Team name="Away Team" />
+            </div>)
+        }
+
+        //CLASS COMPONENT
+        class Team extends React.Component {
+            constructor(props) {
+                super(props)
+                this.state = {
+                    name: props.name,
+                    numShots: 0,
+                    numGoals: 0,
+                }
+
+            }
+            shoot = (event) => {
+                this.setState(currentState => {
+                    return {
+                        numShots: currentState.numShots + 1,
+                        numGoals: currentState.numGoals + Math.round(Math.random())
+                    }
+                })
+                //numShots: currentState (numShots + 1),
+                //numGoals: this.setState (numGoals + (Math.round(Math.random()))
+            }
+            render() {
+                return (
+                    <div>
+                        <h1>{this.state.name}</h1>
+                        <button onClick={this.shoot}><h2>Shoot</h2></button>
+                        <p>Number of Shots:{this.state.numShots}</p>
+                        <p>Score:{this.state.numGoals}</p>
+                    </div>
+                )
+            }
+        }
+
+        //Render the App-->
+        ReactDOM.render(
+            <App />,
+            document.getElementById('root')
+        )
+    </script>
+
+</body>
+
+</html>
