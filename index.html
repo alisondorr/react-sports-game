@@ -30,8 +30,9 @@
         function App(props) {
             //headers for both teams
             return (<div>
-                <Team name="Home Team" />
-                <Team name="Away Team" />
+                <Team name="Home Team: The Ants" logo="https://lh3.googleusercontent.com/proxy/VdlKfvlZUM0vznrgkJVXvRF_AYwNLdqEsLZf14X3yPHrPnAAFVDtqxdrC1u3qENbQ8NIZnrYrU-qrA-jrJ9_AleZYyFaqPP1G4KprlT3_hLWbGCorrxXIP9bjpcv8QH6eD4y50QZJdDfuA3znCBcBR5e94MW0xFy0jLe-0AyuCUc5cY=s0-d" />
+                <Team name="Away Team: The Snakes" logo="https://www.ctvnews.ca/polopoly_fs/1.3998472.1530647959!/httpImage/image.png_gen/derivatives/landscape_960/image.png" />
+
             </div>)
         }
 
@@ -44,10 +45,12 @@
                     numShots: 0,
                     numGoals: 0,
                 }
+                //this.sound = new Audio("https://www.freesoundeffects.com/free-track/bbounce-2-468900/")
 
             }
             shoot = (event) => {
                 this.setState(currentState => {
+                    //this.sound.play()
                     return {
                         numShots: currentState.numShots + 1,
                         numGoals: currentState.numGoals + Math.round(Math.random())
@@ -60,6 +63,7 @@
                 return (
                     <div>
                         <h1>{this.state.name}</h1>
+                        <img src={this.props.logo} width={100} />
                         <button onClick={this.shoot}><h2>Shoot</h2></button>
                         <p>Number of Shots:{this.state.numShots}</p>
                         <p>Score:{this.state.numGoals}</p>
