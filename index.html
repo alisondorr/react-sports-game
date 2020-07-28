@@ -47,27 +47,46 @@
                     numGoals: 0,
                     shotStats: 0,
                 }
-                //this.shotSound = new Audio('./assets/audio/)
-                //this.scoreSound = new Audio('assets/audio/smb_1-up.wav')
+                this.shotSound = new Audio("./react-basics-sports-game/assets/audio/basket.mp3"),
+                    this.scoreSound = new Audio("./react-basics-sports-game/assets/audio/Cheer.wav")
 
             }
+            //Methods section of program logic
             shoot = (event) => {
+                //Sound for every shot
                 this.setState(currentState => {
                     setTimeout(() => {
                         this.shotSound.play()
-                    }, 100)
+                    }, 500)
+                    //check for score new sound for score
+                    let Score = Math.round(Math.random())
+                    if (Score > 0) {
+                        setTimeout(() => {
+                            this.scoreSound.play()
+                        }, 1000)
+
+                    }
+
+                    //increment shots and scores data
                     return {
                         numShots: currentState.numShots + 1,
-                        numGoals: currentState.numGoals + Math.round(Math.random()),
+                        numGoals: currentState.numGoals + Score,
                     }
-                    setTimeout(() => {
-                        this.scoreSound.play()
-                    }, 100)
                 })
-
             }
             render() {
-                let shotStats
+                // Calculate shot percentage
+                let shotStatsDiv
+                if (this.state.numShots != 0) {
+                    let shotStats = (this.state.numGoals / this.state.numShots) * 100
+
+                    shotStatsDiv = (
+                        <div>
+                            Shot Stats %: {shotStats}
+                        </div>
+                    )
+
+                }
                 return (
                     <div>
                         <h1>{this.state.name}</h1>
@@ -75,24 +94,15 @@
                         <button onClick={this.shoot}><h2>Shoot</h2></button>
                         <p>Number of Shots:{this.state.numShots}</p>
                         <p>Score:{this.state.numGoals}</p>
-                        <p>Shot Stats:{this.state.shotStats}</p>
-                        <audio src="https://www.freesoundeffects.com/free-track/bbounce-2-468900/" id="sound"></audio>
-
-                        const shotStats = this.state.score / this.state.shots
-                          if (this.state.shots) {
-                            shotStats = (
-                                <div>
-                                    <strong>Shooting Statistics %:</strong> {shotStats}
-                                </div>
-                            )
-                        }
+                        {shotStatsDiv}
                     </div>
-                    }
-            return({ shotStats })
+                )
+            }
+        }
 
-            ReactDOM.render(
-            <App/>,
-        document.getElementById('root')
+        ReactDOM.render(
+            <App />,
+            document.getElementById('root')
         )
     </script>
 
